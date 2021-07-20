@@ -49,7 +49,7 @@ url='http://localhost:4200/assets/images/profile.png'
   openRegisterModal():void{
     document.getElementById("myModal").style.display="block"
     this.service.getUserProfile(this.userProfile[0].id).subscribe((update:FormSchema)=>{
-      console.log(update.profile)
+      //console.log(update.profile)
       this.url=update.profile
       this.getValueinForm(update)
     })
@@ -67,13 +67,13 @@ url='http://localhost:4200/assets/images/profile.png'
     // })
 
     this.service.editProfilePhoto(this.userProfile[0].id,this.profileForm.value).subscribe((response:FormSchema)=>
-    {console.log(response)}
+    console.log(response)
    
     
     )
   }
   whichaddress(e:any){
-    console.log(e.target.value)
+    //console.log(e.target.value)
     this.address=e.target.value
 
   }

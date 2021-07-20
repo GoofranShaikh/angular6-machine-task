@@ -2,10 +2,11 @@ $font-color:white;
 .profile{
     &-page{
         display: flex;
-        flex-wrap: wrap;
+        //flex-wrap: wrap;
         font-size: 39px;
         margin-top: 5px;
         position:relative;
+   
         
     }
     &-intro{
@@ -15,12 +16,15 @@ $font-color:white;
       top: 56px;
       
     }
+
     &-image-container{
         height:250px;
         .name{
           padding:4px;
           color:skyblue
         }
+
+        
        .register{
   
          left:100px;
@@ -39,7 +43,7 @@ $font-color:white;
         background: white;
         /* box-shadow: 5px 5px 10px black; */
         outline: none;
-        top:261px;
+        top:258px;
         color:$font-color;
         position:absolute;
         left:2px;
@@ -71,6 +75,7 @@ $font-color:white;
     @media only screen and (max-width: 600px) {
         &-page{
             flex-direction: column;
+            overflow:auto;
             
         }
         &-image{
@@ -177,6 +182,7 @@ $font-color:white;
                   background-color: #4890f3;
                   color:white;
               }
+
      
 
             }}
@@ -203,3 +209,13 @@ $font-color:white;
               }
             
             }
+            .Agree{
+              background-color: green;
+              color:white;
+              width:100px;
+              position:relative;
+              top:50px;
+              left:200px;
+              height:60px;
+            
+            } 
