@@ -1,0 +1,89 @@
+<div class="profile-page">
+
+<div class="profile-image-container">
+  <div class="name">Profile</div><br>
+<img src="{{userProfile[0].profile}}" class="profile-image"  alt="user profile">
+<input class="profile-editphoto" type="file"   (change)=EditPhoto(userProfile[0].id,$event)>
+<button class="register" id="register" (click)=openRegisterModal()>Edit</button>
+</div>
+<div class="profile-intro">i'm {{userProfile[0].FirstName}} {{userProfile[0].LastName}} and  i m  {{userProfile[0].Age}} years and you can send your email to <a style="color:blue">{{userProfile[0].Email}}</a>.
+  i live in state of {{userProfile[0].State}}. i like to play {{userProfile[0].tags}}. And please send me news letter.Please rech out to me on my phone number {{userProfile[0].MobileNo}}
+</div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="demoapp-modal">
+  <div class="demoapp-modal-content">
+    <span class="close" (click)=closeRegisterModal()>&times;</span>
+    <div class=header>Register</div>
+    <form  class="registerForm" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+   
+    <img [src]="url" alt="profile picture"ngDefaultControl formControlName="profile"  class="profile" >
+    <div>
+    <input type="file" id="imgUpload" class="imgUpload" (change)=profileChange($event)>
+     <label for="file">Edit Photo</label>
+    </div>
+      <span class="firstName" ><input  class="firstName formfield " formControlName="FirstName" type="text" placeholder="First Name" (ngModelChange)=FirstNameValidation($event)>
+      <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('FirstName').errors && this.profileForm.get('FirstName').touched">This is required field</div>
+        <div class="text-danger" style="color:red" *ngIf="isFnameValid==false && this.profileForm.get('FirstName').touched">First Name must be within 20 character</div>
+      </span>
+      <span class="lastName"><input class="lastName formfield" formControlName="LastName" type="text" placeholder="Last Name"></span>
+      <div class="email"><input class="fullwidth email formfield" formControlName="Email" type="email" placeholder="Email" (ngModelChange)=EmailValidation($event)>
+      <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('Email').errors && this.profileForm.get('Email').touched">This is required field</div>
+        <div class="text-danger" style="color:red" *ngIf="isEmailValid==false && this.profileForm.get('Email').touched">Email is invalid</div>
+      </div>
+        <div class="mobileNo">*<input class="fullwidth mobileNo formfield" formControlName="MobileNo" type="tel" placeholder="eg-9456897612" (ngModelChange)=mobileNoChange($event)>
+        <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('MobileNo').errors && this.profileForm.get('MobileNo').touched">This is required field</div>
+        <div class="text-danger" style="color:red" *ngIf="isMobileNoValid==false && this.profileForm.get('MobileNo').touched">Mobile number is invalid</div>
+      </div>
+
+        <label>Select Age</label>
+       <div> <input type="range" min="20" max="60" [(ngModel)]="age" class="fullwidth myAge  formfield"  formControlName="Age" id="myAge">
+      <div>you are {{age}} years old</div>
+      <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('Age').errors && this.profileForm.get('Age').touched">This is required field</div>
+    </div>
+
+            <div class="state"><select name="myState" id="myState" class="fullwidth myState formfield" formControlName="State">
+        <option value="" selected data-default>state</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+      </select>
+      <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('State').errors && this.profileForm.get('State').touched">This is required field</div>
+    </div>
+
+      <div class="country"><select name="myCountry" id="myCountry" class="fullwidth myCountry formfield" formControlName="Country">
+        <option value=""selected  data-default >Country</option>
+        <option value="India">India</option>
+        <option value="USA">USA</option>
+        <option value="UAE">UAE</option>
+      </select>
+      <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('Country').errors && this.profileForm.get('Country').touched">This is required field</div>
+    </div>
+      <div class="myAddress" formGroupName="Address"><select name="address" id="myAddress" (change)=whichaddress($event) class="fullwidth myAddress formfield" >
+        <option value=""selected  data-default >Address</option>
+        <option value='Home'>Home</option>
+        <option value='Company'>Company</option>
+      </select>
+    <div class ="Home" formGroupName="Home"  *ngIf="address=='Home'">
+    <textarea type="textarea" formControlName="Address1" class="fullwidth Address1 formfield" placeholder="Address1"></textarea>
+    <textarea type="text" formControlName="Address2" class="fullwidth Address2 formfield" placeholder="Address2"></textarea>
+    </div>
+
+    <div class ="Company" formGroupName="Company"  *ngIf="address=='Company'">
+    <textarea type="text" formControlName="Address1" class="fullwidth Address1 formfield" placeholder="Company Address1"></textarea>
+    <textarea type="text" formControlName="Address2" class="fullwidth Address2 formfield" placeholder=" Company Address2"></textarea>
+    </div>
+    <div class="text-danger" style="color:red" *ngIf="this.address=='' && profileForm.get('Address').untouched  ">This is required field</div>
+    </div>
+      <div class="tags"><input class="fullwidth tags formfield" formControlName="tags" type="text" placeholder="tags">
+        <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('tags').errors && this.profileForm.get('tags').touched">This is required field</div>
+
+      </div>
+      <button type="submit" class="submit">Submit</button>
+    </form>
+  </div>
+
+</div> 
+
+

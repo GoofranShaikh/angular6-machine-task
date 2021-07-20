@@ -1,0 +1,200 @@
+$font-color:white;
+.demoapp{
+    &-container{
+        position:relative;
+        display:flex;
+        flex-flow: column;
+        width:100vw;
+        height:100vh;
+       // overflow: hidden;
+    }
+    &-background{
+        z-index: -1;
+        width:100vw;
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  
+    &-content{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        color:$font-color;
+        position: absolute;
+        top: 18vw;
+        left: 91px;
+        font-size: 58px;
+        .search{
+            width:50rem;
+            height:2.5rem;
+            border: none;
+            margin-right:2rem;
+        }
+        .submit{
+            height:2.5rem;
+            width:5rem;
+            border: none;
+            color:$font-color;
+            background-color: skyblue;
+          
+        }
+        .searchlocation{
+            .fulltime{
+                font-size:20px;
+                padding-right: 10px;
+                border:none;
+            }
+            .parttime{
+                font-size:20px;
+                padding-right: 10vw;
+                border:none;
+            }
+            .yourlocation{
+                height:2rem;
+                width:10rem;
+                border:none
+            }
+            .register{
+                position: absolute;
+                background-color: skyblue;
+                color:$font-color;
+                margin:30px 20vw;
+                width:6rem;
+                height:2rem;
+                border:none;
+                &:hover{
+                 cursor:pointer
+                }
+            }
+        }
+    
+    }
+
+&-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  &-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 50%;
+    .header{
+        color: $font-color;
+        //position: relative;
+        top: -20px;
+        height: 40px;
+        left: -20px;
+        width: 100%;
+       background-color: #4890f3;
+    }
+
+    .close {
+       // z-index: 2;
+        text-align: center;
+        color: white;
+        float: right;
+        font-size: 28px;
+        right:3px;
+        position: relative;
+  
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .registerForm{
+        position: relative;
+        left: 183px;
+        width: 34vw;
+        .imgUpload{
+            width: 88px;
+            background: white;
+            /* box-shadow: 5px 5px 10px black; */
+            outline: none;
+            position: absolute;
+            top: 186px;
+            left: -136px;
+        }
+        ::-webkit-file-upload-button{
+            color:white;
+            background-color:#4890f3 ;
+            padding-right:10px;
+            border:none;
+            border-radius: 50px;
+            outline:none;
+
+        }
+          
+      .profile{
+        height: 174px;
+        width: 180px;
+        position: absolute;
+        left: -180px;
+      }
+          .formfield{
+            padding: 10px;
+            width: 30%;
+            margin: 10px;
+            border: 1px solid #ccd4dd;
+            border-radius: 8px;
+          }
+          .fullwidth{
+              width:60%;
+          }
+          .submit{
+              border:none;
+              padding:10px 20px;
+              background-color:#4890f3;
+              color:white;
+          }
+      }
+  }
+  @media only screen and (max-width: 600px) {
+      &-content{  
+        top: 20vw;
+        left: 21px;
+        font-size: 31px;
+        .search{
+            width: 13rem;
+            height: 2.5rem;
+        }
+      }
+      &-modal-content{
+        width: 97%;
+        .registerForm{
+            position: relative;
+            left: 135px;
+            width: 71vw;
+            .imgUpload{
+                width: 88px;
+                background: white;
+                outline: none;
+                position: absolute;
+                top: 138px;
+                left: -111px;
+            }
+            .profile{
+                height: 122px;
+                width: 140px;
+               
+                left: -133px;
+            }
+        }
+      }
+
+  }
+}
