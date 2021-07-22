@@ -101,7 +101,7 @@
         <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('tags').errors && this.profileForm.get('tags').touched">This is required field</div>
 
       </div>
-      <button type="submit" class="submit">Submit</button>
+      <button type="submit" class="submit"  [disabled]="!profileForm.valid">Submit</button>
     </form>
   </div>
 

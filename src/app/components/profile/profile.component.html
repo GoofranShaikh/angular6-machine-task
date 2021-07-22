@@ -1,17 +1,20 @@
-<div class="profile-page">
-
+<div class="profile-page" >
 <div class="profile-image-container">
-  <div class="name">Profile</div><br>
-<img src="{{userProfile[0].profile}}" class="profile-image"  alt="user profile">
-<input class="profile-editphoto" type="file"   (change)=EditPhoto(userProfile[0].id,$event)>
+<div class="name">Profile</div><br>
+
+<img *ngIf="userProfile[userProfile.length-1].profile"  src="{{userProfile[userProfile.length-1].profile}}"  class="profile-image"  alt="user profile">
+<input class="profile-editphoto" type="file"   (change)=EditPhoto(userProfile[userProfile.length-1].id,$event)>
 <button class="register" id="register" (click)=openRegisterModal()>Edit</button>
+
 </div>
-<div class="profile-intro">i'm {{userProfile[0].FirstName}} {{userProfile[0].LastName}} and  i m  {{userProfile[0].Age}} years and you can send your email to <a style="color:blue">{{userProfile[0].Email}}</a>.
-  i live in state of {{userProfile[0].State}}. i like to play {{userProfile[0].tags}}. And please send me news letter.Please rech out to me on my phone number {{userProfile[0].MobileNo}}
+<div class="profile-intro">i'm {{userProfile[userProfile.length-1].FirstName}} {{userProfile[userProfile.length-1].LastName}} and  i m  {{userProfile[userProfile.length-1].Age}} years and you can send your email to <a style="color:blue">{{userProfile[userProfile.length-1].Email}}</a>.
+  i live in state of {{userProfile[userProfile.length-1].State}}. i like to play {{userProfile[userProfile.length-1].tags}}. And please send me news letter.Please rech out to me on my phone number {{userProfile[userProfile.length-1].MobileNo}}
 </div>
 
 </div>
+
 <button class="Agree" type="submit"> I Agree</button>
+
 <!-- The Modal -->
 <div id="myModal" class="demoapp-modal">
   <div class="demoapp-modal-content">
@@ -81,7 +84,7 @@
         <div class="text-danger" style="color:red" *ngIf="this.profileForm.get('tags').errors && this.profileForm.get('tags').touched">This is required field</div>
 
       </div>
-      <button type="submit" class="submit">Submit</button>
+      <button type="submit" class="submit" [disabled]='!profileForm.valid'>Submit</button>
     </form>
   </div>
 

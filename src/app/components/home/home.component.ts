@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormSchema } from 'src/app/interfaces/form-schema';
 import { HttpService } from 'src/app/services/http.service';
 @Component({
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   isFnameValid: boolean=false;
   isMobileNoValid: boolean=false;
  
-  constructor(private service:HttpService) { }
+  constructor(private service:HttpService, private router:Router) { }
 
   ngOnInit() {
     this.address=''
@@ -42,6 +43,9 @@ export class HomeComponent implements OnInit {
     this.service.postProfile(this.profileForm.value).subscribe((response)=>{
       console.log(response)
     })
+    localStorage.setItem('reload','true')
+  this.router.navigate(['profile'])
+
   }
   whichaddress(e:any){
     console.log(e.target.value)
@@ -54,7 +58,7 @@ export class HomeComponent implements OnInit {
   profileChange(e:any){
     if(e.target.files){
 
-      console.log(e)
+    //  console.log(e)
       
       var reader =new FileReader()
       reader.readAsDataURL(e.target.files[0])
@@ -72,7 +76,7 @@ export class HomeComponent implements OnInit {
   makeProfile(){
     this.profileForm=new FormGroup({
       id:new FormControl(),
-      profile:new FormControl(this.url),
+      profile:new FormControl(this.url,[Validators.required]),
       FirstName:new FormControl('',[Validators.required]),
       LastName:new FormControl(),
       Email:new FormControl('',[Validators.required]),
@@ -110,7 +114,7 @@ export class HomeComponent implements OnInit {
   }
 
   FirstNameValidation(name:any){
-    console.log(this.profileForm.get('FirstName').errors)
+   // console.log(this.profileForm.get('FirstName').errors)
     // console.log(email)
     var regex = new RegExp(/^([A-Z,a-z]){1,20}$/);
     this.isFnameValid = regex.test(name);   //test method will check for patern match in 'regex'

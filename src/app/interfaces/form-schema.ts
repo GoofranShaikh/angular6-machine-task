@@ -24,10 +24,11 @@ export interface FormSchema {
           }
         ]
     
-}
+      }
 interface Home{
     Address1: string;
     Address2: string;
+ 
   }
 // interface Company{
 //     Address1: string;

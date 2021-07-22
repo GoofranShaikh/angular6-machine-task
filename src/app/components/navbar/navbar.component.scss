@@ -24,6 +24,9 @@ $font-color:white;
         position:absolute;
         top:15px;
         left:10px;
+        &:hover{
+            cursor: pointer;
+        }
        
     }
     &-nav{

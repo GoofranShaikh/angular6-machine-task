@@ -37,7 +37,7 @@ headers=headers.append('content-type','application/json')
 //headers=headers.append('content-type','application/x-www-form-urlencoded')
 //headers=headers.append('content-type','charset=utf-8')
  
-console.log(headers)
+//console.log(headers)
  
    return this.http.put<FormSchema>(`${env.BASE_URL}/Register/${id}`,image,{ 'headers': headers });
   

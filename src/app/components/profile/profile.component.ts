@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormSchema } from 'src/app/interfaces/form-schema';
 import { HttpService } from 'src/app/services/http.service';
+import {Router} from '@angular/router'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -10,47 +11,44 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class ProfileComponent implements OnInit {
 
-userProfile:FormSchema
+userProfile:any=[]
 image:any
 address:string
 url='http://localhost:4200/assets/images/profile.png'
   profileForm: FormGroup;
+
   isEmailValid: boolean=false;
   isFnameValid: boolean=false;
   isMobileNoValid: boolean=false;
-  constructor(private service:HttpService) { }
+  constructor(private service:HttpService, private router:Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('reload')){
+      location.reload()
+      localStorage.removeItem('reload')
+    }
+
     this.address=''
     this.makeProfile()
-    this.service.getProfile().subscribe((data:FormSchema)=>{
-       this.userProfile=data
-       console.log(data)
-     // console.log(this.userProfile[57].profile)
-    })
+    this.getuserprofile()
+
+
+    
   }
-  // profileChange(e:any){
-  //   if(e.target.files){
+  getuserprofile(){
+    this.service.getProfile().subscribe((data:FormSchema)=>{
+      this.userProfile=data
+    //  console.log(this.userProfile.length)
+    //  console.log(data)
+   })
+  }
+ 
 
-  //     console.log(e)
-      
-  //     var reader =new FileReader()
-  //     reader.readAsDataURL(e.target.files[0])
-  //     reader.onload=(event:any)=>{
-  //       this.url=event.target.result
-  //       this.makeProfile()        
-  //     }
-
-  
-     
-  //   }
-
-  // }
   openRegisterModal():void{
     document.getElementById("myModal").style.display="block"
-    this.service.getUserProfile(this.userProfile[0].id).subscribe((update:FormSchema)=>{
-      //console.log(update.profile)
+    this.service.getUserProfile(this.userProfile[this.userProfile.length-1].id).subscribe((update:FormSchema)=>{
       this.url=update.profile
+      console.log(update)
       this.getValueinForm(update)
     })
 
@@ -60,34 +58,27 @@ url='http://localhost:4200/assets/images/profile.png'
     document.getElementById("myModal").style.display="none"
   }
   onSubmit(){
- 
-    // console.log(this.url)
-    // this.service.postProfile(this.profileForm.value).subscribe((response)=>{
-    //   console.log(response)
-    // })
-
-    this.service.editProfilePhoto(this.userProfile[0].id,this.profileForm.value).subscribe((response:FormSchema)=>
-    console.log(response)
-   
-    
+    this.service.editProfilePhoto(this.userProfile[this.userProfile.length-1].id,this.profileForm.value).subscribe((response:FormSchema)=>
+    console.log(response)  
     )
+    document.getElementById("myModal").style.display="none";
+    location.reload()
+   
   }
   whichaddress(e:any){
-    //console.log(e.target.value)
     this.address=e.target.value
 
   }
   EditPhoto(id:number,e:any){
-if(e.target.files){
+  console.log(id)
+ if(e.target.files){
   var reader =new FileReader()
   reader.readAsDataURL(e.target.files[0])
   reader.onload=(event:any)=>{
     this.image=event.target.result
-   // console.log(id)
-   // console.log(this.image)
     this.updateUserProfile()
-    this.service.editProfilePhoto(id,this.userProfile[0]).subscribe((res)=>{
-    console.log(res)
+    this.service.editProfilePhoto(id,this.userProfile[this.userProfile.length-1]).subscribe((res)=>{
+    //console.log(res)
    
 
     
@@ -98,22 +89,23 @@ if(e.target.files){
 }
 
 updateUserProfile(){
-  this.userProfile[0].profile=this.image
-  this.userProfile[0].FirstName=this.userProfile[0].FirstName
-  this.userProfile[0].LastName=this.userProfile[0].LastName
-  this.userProfile[0].Email=this.userProfile[0].Email
-  this.userProfile[0].MobileNo=this.userProfile[0].MobileNo
-  this.userProfile[0].Age= this.userProfile[0].Age
-  this.userProfile[0].State= this.userProfile[0].State
-  this.userProfile[0].Country=this.userProfile[0].Country
-  this.userProfile[0].Address.Home.Address1=this.userProfile[0].Address.Home.Address1
-  this.userProfile[0].Address.Home.Address2= this.userProfile[0].Address.Home.Address2
-  this.userProfile[0].Address.Company.Address1=this.userProfile[0].Address.Company.Address1
-  this.userProfile[0].Address.Company.Address2=this.userProfile[0].Address.Company.Address2
-  this.userProfile[0].Address.tags=this.userProfile[0].Address.tags
+  this.userProfile[this.userProfile.length-1].profile=this.image
+  this.userProfile[this.userProfile.length-1].FirstName=this.userProfile[this.userProfile.length-1].FirstName
+  this.userProfile[this.userProfile.length-1].LastName=this.userProfile[this.userProfile.length-1].LastName
+  this.userProfile[this.userProfile.length-1].Email=this.userProfile[this.userProfile.length-1].Email
+  this.userProfile[this.userProfile.length-1].MobileNo=this.userProfile[this.userProfile.length-1].MobileNo
+  this.userProfile[this.userProfile.length-1].Age= this.userProfile[this.userProfile.length-1].Age
+  this.userProfile[this.userProfile.length-1].State= this.userProfile[this.userProfile.length-1].State
+  this.userProfile[this.userProfile.length-1].Country=this.userProfile[this.userProfile.length-1].Country
+  this.userProfile[this.userProfile.length-1].Address.Home.Address1=this.userProfile[this.userProfile.length-1].Address.Home.Address1
+  this.userProfile[this.userProfile.length-1].Address.Home.Address2= this.userProfile[this.userProfile.length-1].Address.Home.Address2
+  this.userProfile[this.userProfile.length-1].Address.Company.Address1=this.userProfile[this.userProfile.length-1].Address.Company.Address1
+  this.userProfile[this.userProfile.length-1].Address.Company.Address2=this.userProfile[this.userProfile.length-1].Address.Company.Address2
+  this.userProfile[this.userProfile.length-1].Address.tags=this.userProfile[this.userProfile.length-1].Address.tags
 
 }
 makeProfile(){
+ 
   this.profileForm=new FormGroup({
     id:new FormControl(),
     profile:new FormControl(''),
@@ -141,6 +133,7 @@ makeProfile(){
       tags:new FormControl('',[Validators.required])
     
   });
+
 
 }
 getValueinForm(update:FormSchema){
@@ -170,15 +163,12 @@ getValueinForm(update:FormSchema){
     
       tags:update.tags
   })
+
 }
 
 EmailValidation(email:any){
-  // console.log(this.profileForm.get('Email').touched)
-  // console.log(email)
   var regex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   this.isEmailValid = regex.test(email);   //test method will check for patern match in 'regex'
-
-      //console.log(this.isEmailValid)
       return this.isEmailValid
 }
 
